@@ -1,23 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-let id = 'id1';
-//React元素 -虚拟DOM元素
-//是以<DOM标签开头的
-//虚拟DOM元素属性不能随便写
-//要转换驼峰命名法的话 class class
-let style = {backgroundColor:'green'};
-let msg = `
-<script>while(true)alert('1');</script>
-`
+import React,{Component} from 'react';
+import ReactDOM, {render} from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+class Panel extends Component{
+  render(){
+      return (
+          <div>
 
-let ele = (
-    <h1 className="red" style={style}>
-        hello
-    </h1>
-)
-console.log(ele);
-// {type:'h1',props:{children:'hello',className:'red',style:{backgroundColor:'green'}}}
-ReactDOM.render(
-    ele,
-    document.querySelector('#root')
-);
+          </div>
+      )
+  }
+}
+class PanelHead extends Component{
+
+}
+class PanelBody extends Component{
+
+}
+class PanelFooter extends Component{
+
+}
+render(<Panel head="头" body="体" footer=" 尾"/>,document.querySelector('#root'));
