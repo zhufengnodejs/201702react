@@ -1,35 +1,32 @@
 import React,{Component} from 'react';
 import ReactDOM, {render} from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-class Panel extends Component{
-  //this.props = {head=:"头",body:"体",footer:"尾"}
-  render(){
-      return (
-          <div className="panel panel-default">
-            <PanelHead content={this.props.head}/>
-            <PanelBody content={this.props.body}/>
-            <PanelFooter content={this.props.footer}/>
-          </div>
-      )
-  }
-}
-class PanelHead extends Component{
-    render(){
-        return <div className="panel-heading">
-            {this.props.content}
-        </div>
+class Counter extends Component{
+    constructor(props){
+        super(props);
+        this.state = {number:0,name:'张三'};
     }
-}
 
-class PanelBody extends Component{
+    /**
+     * 事件监听函数里的this默认指向null
+     * bind
+     * 箭头函数
+     */
+    handleClick = ()=>{
+        // setState是异步的，不能调用之后立刻取值
+        //必须在回调函数中取更新的值
+        this.setState({
+            number:this.state.number+1
+        },()=>{
+            alert(this.state.number);
+        });
+    }
     render(){
-        return <div className="panel-body">{this.props.content}</div>
+        return (
+            <div>
+                <p>{this.state.name}:{this.state.number}</p>
+                <button onClick={this.handleClick.bind(this)}>+</button>
+            </div>
+        )
     }
 }
-
-class PanelFooter extends Component{
-    render(){
-        return <div className="panel-footer">{this.props.content}</div>
-    }
-}
-render(<Panel head="头" body="体" footer=" 尾"/>,document.querySelector('#root'));
+render(<Counter/>,document.querySelector('#root'));
