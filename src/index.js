@@ -11,10 +11,12 @@ class Suggest extends Component {
     constructor(props){
         super(props);
         //index 当前哪个li得到焦点
-        this.state = {words:[],index:-1};
+        this.state = {words:[],index:-1,wd:''};
     }
     handleChange = (event)=>{
         let wd = event.target.value;
+        //把一个变量缓存在当前组件的实例上
+        this.wd = wd;
         $.ajax({
             url:'http://www.baidu.com/su',
             type:'GET',
@@ -27,7 +29,23 @@ class Suggest extends Component {
         });
     }
     handleKeyDown = (event)=>{
-
+        let code = event.keyCode;
+        if(code == 38 || code == 40){
+            let index = this.state.index;
+            if(code == 38){//向上
+                index--;
+                if(index<-1){
+                    index = this.state.words.length-1;
+                }
+            }
+            if(code == 40){//向下
+                index++;
+                if(index >= this.state.words.length){
+                    index = -1;
+                }
+            }
+            this.setState({index,wd:this.state.words[index]});
+        }
     }
     render() {
         return (
@@ -36,7 +54,7 @@ class Suggest extends Component {
                     <div className="col-sm-8 col-sm-offset-2">
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                <input onKeyDown={this.handleKeyDown} onChange={this.handleChange} type="text" className="form-control"/>
+                                <input value={this.state.index==-1?this.wd:this.state.wd} onKeyDown={this.handleKeyDown} onChange={this.handleChange} type="text" className="form-control"/>
                             </div>
                             <div className="panel-body">
                                 <ul className="list-group">
