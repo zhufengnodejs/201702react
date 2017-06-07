@@ -1,44 +1,28 @@
 import React,{Component} from 'react';
 import {render} from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-// UI组件 木偶组件 傻瓜组件
-class PageItem extends Component{
-    render(){
-        let {i,changePage,current} = this.props;
-        return (
-            <li onClick={()=>changePage(i)} key={i} className={i==current?"active":""}><a href="#">{this.props.children}</a></li>
-        )
-    }
+//如何在React中得到并操作DOM元素
+class Calculator extends Component{
+  constructor(props){
+      super(props);
+  }
+  change = ()=>{
+      console.log(this.refs);
+    //this.refs是一个对象，属性就是虚拟DOM的ref的值 ，值是此虚拟DOM渲染完成之后的真实DOM对象
+    let a = this.a.value;
+    let b = this.refs.b.value;
+    this.refs.result.innerHTML = parseInt(a)+parseInt(b);
+  }
+  render(){
+      //ref可以等于一个函数，这个函数会在此虚拟DOM转为真实DOM插入到页面之后执行，参数就是此真实DOM对象
+      return (
+          <div>
+              <input ref={ref=>this.a=ref} type="text" defaultValue={0} onChange={this.change}/>
+              +
+              <input ref="b" type="text" defaultValue={0} onChange={this.change}/>
+              =
+              <span ref="result">{0}</span>
+          </div>
+      )
+  }
 }
-//分页组件
-class Pagination extends Component{
-    constructor(props){
-        super(props);
-        this.state = {current:this.props.pageNum};
-    }
-    changePage =(current)=>{
-        this.setState({current});
-    }
-    render(){
-        let lis = [];
-        if(this.state.current>1){
-            lis.push(<PageItem key={0} i={this.state.current-1} changePage={this.changePage} current={this.state.current}><span aria-hidden="true">&laquo;</span></PageItem>);
-        }
-        for(let i=1;i<=this.props.totalPages;i++){
-            lis.push(<PageItem key={i} i={i} changePage={this.changePage} current={this.state.current}>{i}</PageItem>);
-        }
-        if(this.state.current<this.props.totalPages){
-            lis.push(<PageItem key={this.props.totalPages+1} i={this.state.current+1} changePage={this.changePage} current={this.state.current}><span aria-hidden="true">&raquo;</span></PageItem>);
-        }
-        return (
-            <nav>
-                <ul className="pagination">
-                    {
-                        lis
-                    }
-                </ul>
-            </nav>
-        )
-    }
-}
-render(<Pagination pageNum={1} totalPages={5}/>,document.querySelector('#root'));
+render(<Calculator/>,document.querySelector('#root'));
