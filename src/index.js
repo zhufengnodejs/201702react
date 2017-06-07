@@ -1,26 +1,32 @@
 import React,{Component} from 'react';
 import {render} from 'react-dom';
-//表单元素的双向数据绑定
-//受控组件和非受控组件
-//受控组件 表单元素值受组件的状态控制
-class Input extends Component{
-    constructor(props){
-        super(props);
-        this.state = {val:'1'};
-    }
-    //事件处理器 event参数
-    handleChange = (event)=>{
-        this.setState({
-            val:event.target.value
-        });
-    }
+import 'bootstrap/dist/css/bootstrap.css';
+//分页组件
+class Pagination extends Component{
     render(){
+        let lis = [];
+        for(let i=1;i<=this.props.totalPages;i++){
+            lis.push(<li key={i} className={i==this.props.pageNum?"active":""}><a href="#">{i}</a></li>);
+        }
         return (
-            <div>
-                <input onChange={this.handleChange} type="text" value={this.state.val}/>
-                <p>{this.state.val}</p>
-            </div>
+            <nav>
+                <ul className="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {
+                        lis
+                    }
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         )
     }
 }
-render(<Input/>,document.querySelector('#root'));
+render(<Pagination pageNum={2} totalPages={5}/>,document.querySelector('#root'));
