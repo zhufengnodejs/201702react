@@ -10,7 +10,8 @@ import $ from 'jquery';
 class Suggest extends Component {
     constructor(props){
         super(props);
-        this.state = {words:[]};
+        //index 当前哪个li得到焦点
+        this.state = {words:[],index:-1};
     }
     handleChange = (event)=>{
         let wd = event.target.value;
@@ -24,6 +25,8 @@ class Suggest extends Component {
                 this.setState({words:result.s});
             }
         });
+    }
+    handleKeyDown = (event)=>{
 
     }
     render() {
@@ -33,12 +36,12 @@ class Suggest extends Component {
                     <div className="col-sm-8 col-sm-offset-2">
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                <input onChange={this.handleChange} type="text" className="form-control"/>
+                                <input onKeyDown={this.handleKeyDown} onChange={this.handleChange} type="text" className="form-control"/>
                             </div>
                             <div className="panel-body">
                                 <ul className="list-group">
                                     {
-                                        this.state.words.map((word,index)=><li className="list-group-item" key={index}>{word}</li>)
+                                        this.state.words.map((word,index)=><li className={"list-group-item "+(this.state.index==index?'active':'')} key={index}>{word}</li>)
                                     }
                                 </ul>
                             </div>
