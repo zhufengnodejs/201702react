@@ -1,29 +1,26 @@
 import React,{Component} from 'react';
 import {render} from 'react-dom';
-class Messages extends Component{
-  render(){
-      /*console.log(this.props.children);
-      // typeof instanceof map toString
-      let children = this.props.children;
-      if(!(children instanceof Array)){
-          children = [children];
-      }*/
-      //React.Children.map是React提供的工具方法
-      return (
-          <ul>
-              {
-                  React.Children.map(this.props.children,(item,index)=><li key={index}>{item}</li>)
-              }
-          </ul>
-      )
-  }
+//表单元素的双向数据绑定
+//受控组件和非受控组件
+//受控组件 表单元素值受组件的状态控制
+class Input extends Component{
+    constructor(props){
+        super(props);
+        this.state = {val:'1'};
+    }
+    //事件处理器 event参数
+    handleChange = (event)=>{
+        this.setState({
+            val:event.target.value
+        });
+    }
+    render(){
+        return (
+            <div>
+                <input onChange={this.handleChange} type="text" value={this.state.val}/>
+                <p>{this.state.val}</p>
+            </div>
+        )
+    }
 }
-render(<Messages>
-    <span>大毛</span>
-</Messages>,document.querySelector('#root'));
-{/*
-<ul>
-    <li><span>大毛</span></li>
-    <li><span>二毛</span></li>
-    <li><span>三毛</span></li>
-</ul>*/}
+render(<Input/>,document.querySelector('#root'));
