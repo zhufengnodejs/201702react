@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
+import MessageItem from './MessageItem';
 export default class MessageList extends Component{
     render(){
         return (
             <ul className="list-group">
                 {
-                    this.props.messages.map((item,index)=><li className="list-group-item">{item.username}:{item.content} <span className="pull-right">{item.createAt.toLocaleString()}</span></li>)
+                    this.props.messages.map((item,index)=><MessageItem key={index} item={item}/>)
                 }
             </ul>
         )
