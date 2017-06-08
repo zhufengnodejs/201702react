@@ -7,7 +7,7 @@ ul,li{
 }
 
 .slider-wrapper{
-    width:200px;
+    width:300px;
     height:200px;
     margin:10px auto;
     position: relative;
@@ -22,7 +22,7 @@ ul,li{
 .slider-wrapper .sliders .slider{
     float:left;
     height:200px;
-    width:200px;
+    width:300px;
 }
 .slider-wrapper .sliders .slider img{
     width:100%;
