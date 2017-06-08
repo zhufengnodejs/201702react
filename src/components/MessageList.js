@@ -5,7 +5,7 @@ export default class MessageList extends Component{
         return (
             <ul className="list-group">
                 {
-                    this.props.messages.map((item,index)=><MessageItem key={index} item={item}/>)
+                    this.props.messages.map((item,index)=><MessageItem delMessage={this.props.delMessage} key={index} item={item}/>)
                 }
             </ul>
         )

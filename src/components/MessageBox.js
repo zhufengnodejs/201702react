@@ -16,6 +16,10 @@ export default class MessageBox extends Component{
             messages:this.state.messages
         });
     }
+    delMessage = (deleteId)=>{
+        let messages = this.state.messages.filter(item=>item.id!=deleteId);
+        this.setState({messages});
+    }
     render(){
         return (
             <div className="container">
@@ -26,7 +30,7 @@ export default class MessageBox extends Component{
                                 <MessageHeader/>
                             </div>
                             <div className="panel-body">
-                                <MessageList messages={this.state.messages}/>
+                                <MessageList delMessage={this.delMessage} messages={this.state.messages}/>
                             </div>
                             <div className="panel-footer">
                                 <MessageForm addMessage={this.addMessage}/>
