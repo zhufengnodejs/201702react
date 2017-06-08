@@ -11,7 +11,7 @@ export default class TodoList extends Component{
                 }
 
                 {
-                    this.props.todos.map((todo,index)=><TodoItem changeEditing={this.props.changeEditing} editing={this.props.editing} delTodo={this.props.delTodo} key={index} todo={todo} toggle={this.props.toggle}/>)
+                    this.props.todos.map((todo,index)=><TodoItem cancelEdit={this.props.cancelEdit} updateTodo={this.props.updateTodo} changeEditing={this.props.changeEditing} editing={this.props.editing} delTodo={this.props.delTodo} key={index} todo={todo} toggle={this.props.toggle}/>)
                 }
             </ul>
         )

@@ -52,6 +52,17 @@ export default class TodoApp extends Component {
             editing
         });
     }
+    updateTodo = (id,content)=>{
+        let todos = this.state.todos.map(todo=>{
+            if(todo.id == id)
+                todo.content = content;
+            return todo;
+        })
+        this.setState({todos,editing:null});
+    }
+    cancelEdit = ()=>{
+        this.setState({editing:null});
+    }
     render() {
         let showTodos = this.state.todos.filter(todo => {
             switch (this.state.filter) {
@@ -72,7 +83,9 @@ export default class TodoApp extends Component {
             delTodo:this.delTodo,
             toggle:this.toggle,
             editing:this.state.editing,
-            changeEditing:this.changeEditing
+            changeEditing:this.changeEditing,
+            updateTodo:this.updateTodo,
+            cancelEdit:this.cancelEdit
         }
         let footerOptions = {
             clearAllCompleted: this.clearAllCompleted,
