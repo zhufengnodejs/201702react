@@ -6,7 +6,7 @@ export default class TodoHeader extends Component{
            let content = event.target.value;
            if(content){
                 this.props.addTodo({content});
-               event.target.value = '';
+                event.target.value = '';
            }
        }
     }

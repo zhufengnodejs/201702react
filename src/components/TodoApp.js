@@ -15,6 +15,10 @@ export default class TodoApp extends Component{
         this.state.todos.push(todo);//向老数组里添加一个新的元素
         this.setState({todos:this.state.todos});//设置状态
     }
+    delTodo = (deleteId)=>{
+        let todos = this.state.todos.filter((todo)=>todo.id != deleteId);
+        this.setState({todos});
+    }
     render(){
         return (
             <div className="container" style={{marginTop:10}}>
@@ -25,7 +29,7 @@ export default class TodoApp extends Component{
                                 <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
-                                <TodoList todos={this.state.todos}/>
+                                <TodoList todos={this.state.todos} delTodo={this.delTodo}/>
                             </div>
                             <div className="panel-footer">
 

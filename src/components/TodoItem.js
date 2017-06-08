@@ -5,7 +5,7 @@ export default class TodoItem extends Component{
             <li className="list-group-item">
                 <input type="checkbox" checked={this.props.todo.completed}/>
                 <span style={{marginLeft:10}}>{this.props.todo.content}</span>
-                <button className="btn btn-danger btn-xs pull-right">x</button>
+                <button className="btn btn-danger btn-xs pull-right" onClick={()=>this.props.delTodo(this.props.todo.id)}>x</button>
             </li>
         )
     }
