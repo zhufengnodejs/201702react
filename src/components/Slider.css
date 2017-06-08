@@ -57,3 +57,24 @@ ul,li{
     float:right;
     margin-right:5px;
 }
+
+.slider-wrapper .slider-dots{
+    position: absolute;
+    width:100%;
+    bottom: 10px;
+    text-align: center;
+}
+
+.slider-wrapper .slider-dots .slider-dot{
+    display:inline-block;
+    width:20px;
+    height:20px;
+    margin-left:5px;
+    border-radius: 50%;
+    background-color: #CCC;
+    cursor: pointer;
+    border:1px solid blue;
+}
+.slider-wrapper .slider-dots .slider-dot.active{
+    background-color: #333;
+}
