@@ -8,6 +8,14 @@ export default class TodoApp extends Component{
             todos:[]//todo对象数组 {id,content,completed}
         }
     }
+    toggle = (id)=>{
+        let todos = this.state.todos.map(item=>{
+            if(item.id === id)
+                item.completed = !item.completed;
+            return item;
+        });
+        this.setState({todos});
+    }
     //增加TODO
     addTodo = (todo)=>{ //参数为todo对象
         todo.id = Date.now()+''+Math.random();//添加ID
@@ -29,7 +37,7 @@ export default class TodoApp extends Component{
                                 <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
-                                <TodoList todos={this.state.todos} delTodo={this.delTodo}/>
+                                <TodoList todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
                             </div>
                             <div className="panel-footer">
 
