@@ -7,6 +7,7 @@ export default class TodoApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            editing:null,//编辑中的todo的主键
             filter: filterTypes.SHOW_ALL,//定义新的过滤条件
             todos: []//todo对象数组 {id,content,completed}
         }
@@ -46,7 +47,11 @@ export default class TodoApp extends Component {
         let todos = this.state.todos.filter(todo => !todo.completed);
         this.setState({todos});
     }
-
+    changeEditing = (editing)=>{
+        this.setState({
+            editing
+        });
+    }
     render() {
         let showTodos = this.state.todos.filter(todo => {
             switch (this.state.filter) {
@@ -60,6 +65,15 @@ export default class TodoApp extends Component {
         });
         //未完成的事项数量
         let activeCount = this.state.todos.filter(item => !item.completed).length;
+        let listOptions = {
+            toggleAll:this.toggleAll,
+            activeCount,
+            todos:showTodos,
+            delTodo:this.delTodo,
+            toggle:this.toggle,
+            editing:this.state.editing,
+            changeEditing:this.changeEditing
+        }
         let footerOptions = {
             clearAllCompleted: this.clearAllCompleted,
             filter: this.state.filter,
@@ -75,8 +89,7 @@ export default class TodoApp extends Component {
                                 <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
-                                <TodoList toggleAll={this.toggleAll} activeCount={activeCount} todos={showTodos}
-                                          delTodo={this.delTodo} toggle={this.toggle}/>
+                                <TodoList {...listOptions}/>
                             </div>
                             <div className="panel-footer">
                                 <TodoFooter {...footerOptions}/>
