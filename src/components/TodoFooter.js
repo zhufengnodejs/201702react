@@ -13,7 +13,7 @@ export default class TodoFooter extends Component{
                     <button className={"btn btn-default "+(this.props.filter==filterTypes.SHOW_COMPLETED?'active':'')} style={{marginLeft:5}}  onClick={()=>this.props.changeFilter(filterTypes.SHOW_COMPLETED)}>已完成</button>
                 </div>
                 <div className="col-md-3 text-center">
-                    <button className="btn btn-danger">清除已完成</button>
+                    <button className="btn btn-danger" onClick={this.props.clearAllCompleted}>清除已完成</button>
                 </div>
             </div>
         )
