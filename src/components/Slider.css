@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    list-style: none;
+}
+
+.slider-wrapper{
+    width:200px;
+    height:200px;
+    margin:10px auto;
+    position: relative;
+    border:1px solid green;
+    overflow: hidden;
+}
+.slider-wrapper .sliders{
+   height:200px;
+   position: absolute;
+}
+
+.slider-wrapper .sliders .slider{
+    float:left;
+    height:200px;
+    width:200px;
+}
+.slider-wrapper .sliders .slider img{
+    width:100%;
+    height:100%;
+}
