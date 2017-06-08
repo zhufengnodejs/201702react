@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
+import TodoFooter from './TodoFooter';
 export default class TodoApp extends Component{
     constructor(props){
         super(props);
@@ -40,7 +41,7 @@ export default class TodoApp extends Component{
                                 <TodoList todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
                             </div>
                             <div className="panel-footer">
-
+        <TodoFooter/>
                             </div>
                         </div>
                     </div>
