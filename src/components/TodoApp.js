@@ -2,10 +2,12 @@ import React,{Component} from 'react';
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
 import TodoFooter from './TodoFooter';
+import * as filterTypes from './filter-types';
 export default class TodoApp extends Component{
     constructor(props){
         super(props);
         this.state = {
+            filter:filterTypes.SHOW_ALL,//定义新的过滤条件
             todos:[]//todo对象数组 {id,content,completed}
         }
     }
@@ -35,7 +37,20 @@ export default class TodoApp extends Component{
         });
         this.setState({todos});
     }
+    changeFilter = (filter)=>{
+        this.setState({filter});
+    }
     render(){
+        let showTodos = this.state.todos.filter(todo=>{
+            switch (this.state.filter){
+                case filterTypes.SHOW_ACTIVE:
+                    return !todo.completed;
+                case filterTypes.SHOW_COMPLETED:
+                    return todo.completed;
+                default:
+                    return true;
+            }
+        });
         //未完成的事项数量
         let activeCount = this.state.todos.filter(item=>!item.completed).length;
 
@@ -48,10 +63,10 @@ export default class TodoApp extends Component{
                                 <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
-                                <TodoList toggleAll={this.toggleAll} activeCount={activeCount} todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
+                                <TodoList toggleAll={this.toggleAll} activeCount={activeCount} todos={showTodos} delTodo={this.delTodo} toggle={this.toggle}/>
                             </div>
                             <div className="panel-footer">
-        <TodoFooter activeCount={activeCount}/>
+        <TodoFooter filter={this.state.filter} changeFilter={this.changeFilter} activeCount={activeCount}/>
                             </div>
                         </div>
                     </div>
