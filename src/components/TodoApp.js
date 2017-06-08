@@ -5,8 +5,15 @@ export default class TodoApp extends Component{
     constructor(props){
         super(props);
         this.state = {
-            todos:[{id:1,content:'学习React',completed:false},{id:2,content:'学习Vue',completed:false}]//todo对象数组 {id,content,completed}
+            todos:[]//todo对象数组 {id,content,completed}
         }
+    }
+    //增加TODO
+    addTodo = (todo)=>{ //参数为todo对象
+        todo.id = Date.now()+''+Math.random();//添加ID
+        todo.completed = false;//添加完成状态
+        this.state.todos.push(todo);//向老数组里添加一个新的元素
+        this.setState({todos:this.state.todos});//设置状态
     }
     render(){
         return (
@@ -15,7 +22,7 @@ export default class TodoApp extends Component{
                     <div className="col-md-6 col-md-offset-3">
                         <div className="panel panel-default">
                             <div className="panel-heading">
-                                <TodoHeader/>
+                                <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
                                 <TodoList todos={this.state.todos}/>
