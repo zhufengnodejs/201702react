@@ -28,6 +28,13 @@ export default class TodoApp extends Component{
         let todos = this.state.todos.filter((todo)=>todo.id != deleteId);
         this.setState({todos});
     }
+    toggleAll = (checked)=>{
+        let todos = this.state.todos.map(todo=>{
+            todo.completed = checked;
+            return todo;
+        });
+        this.setState({todos});
+    }
     render(){
         //未完成的事项数量
         let activeCount = this.state.todos.filter(item=>!item.completed).length;
@@ -41,7 +48,7 @@ export default class TodoApp extends Component{
                                 <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
-                                <TodoList activeCount={activeCount} todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
+                                <TodoList toggleAll={this.toggleAll} activeCount={activeCount} todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
                             </div>
                             <div className="panel-footer">
         <TodoFooter activeCount={activeCount}/>
