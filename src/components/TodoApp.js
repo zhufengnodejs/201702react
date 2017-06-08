@@ -29,6 +29,9 @@ export default class TodoApp extends Component{
         this.setState({todos});
     }
     render(){
+        //未完成的事项数量
+        let activeCount = this.state.todos.filter(item=>!item.completed).length;
+
         return (
             <div className="container" style={{marginTop:10}}>
                 <div className="row">
@@ -38,10 +41,10 @@ export default class TodoApp extends Component{
                                 <TodoHeader addTodo={this.addTodo}/>
                             </div>
                             <div className="panel-body">
-                                <TodoList todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
+                                <TodoList activeCount={activeCount} todos={this.state.todos} delTodo={this.delTodo} toggle={this.toggle}/>
                             </div>
                             <div className="panel-footer">
-        <TodoFooter/>
+        <TodoFooter activeCount={activeCount}/>
                             </div>
                         </div>
                     </div>
