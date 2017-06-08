@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+
 export default class MessageBox extends Component{
     constructor(){
         super();
@@ -6,8 +7,15 @@ export default class MessageBox extends Component{
     }
     handleSubmit = (event)=>{
         event.preventDefault();//阻止表单的默认事件
-        let val = this.refs.content.value;
-        this.state.messages.push(val)
+        let username = this.refs.username.value;
+        let content = this.refs.content.value;
+        let msg = {
+            id:Date.now()+''+Math.random(),
+            username,//用户名
+            content,//内容
+            createAt:new Date()//发表的时间
+        }
+        this.state.messages.push(msg);
         this.setState({
             messages:this.state.messages
         });
@@ -25,12 +33,16 @@ export default class MessageBox extends Component{
                             <div className="panel-body">
                               <ul className="list-group">
                                   {
-                                      this.state.messages.map((item,index)=><li className="list-group-item">{item}</li>)
+                                      this.state.messages.map((item,index)=><li className="list-group-item">{item.username}:{item.content} <span>{item.createAt.toLocaleString()}</span></li>)
                                   }
                               </ul>
                             </div>
                             <div className="panel-footer">
                                 <form onSubmit={this.handleSubmit}>
+                                    <div className="form-group">
+                                        <label htmlFor="content">姓名</label>
+                                        <input ref="username" type="text" className="form-control"/>
+                                    </div>
                                     <div className="form-group">
                                         <label htmlFor="content">内容</label>
                                         <input ref="content" type="text" className="form-control"/>
@@ -47,3 +59,11 @@ export default class MessageBox extends Component{
         )
     }
 }
+
+/**
+ * 1. 实现匿名留言
+ * 2. 增加用户名
+ * 3. 增加发表时间
+ * 4. 删除功能
+ * 5. 数据持久化
+ */
